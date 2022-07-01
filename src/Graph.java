@@ -1,5 +1,6 @@
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -30,10 +32,20 @@ public class Graph extends JPanel
         final CategoryDataset dataset = this.createDataset();
         final JFreeChart chart = ChartFactory.createLineChart(chartTitle, categoryAxisLabel, valueAxisLabel, dataset);
         
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        plot.getRenderer().setSeriesStroke(1, new BasicStroke(2.0f));
+        
+      
+        
+        ChartPanel cp = new ChartPanel(chart);
+        cp.setPreferredSize(new Dimension(600, 600));
+        
+        
         //Change background colors in chart
         chart.setBackgroundPaint(new Color(146, 148, 150));
         chart.getTitle().setPaint(new Color(255, 255, 255));
         chart.getPlot().setBackgroundPaint(new Color(146, 148, 150));
+        
         
         return (JPanel)new ChartPanel(chart);
     }
